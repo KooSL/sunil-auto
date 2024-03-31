@@ -56,7 +56,7 @@
                         <td class="px-6 py-4 whitespace-nowrap"><?php echo $row['cntsub'];?></td>
                         <td class="px-6 py-4 whitespace-nowrap"><?php echo $row['cntmessage'];?></td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="text-indigo-600 hover:text-indigo-900 mr-2" >Reply</a>
+                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="text-indigo-600 hover:text-indigo-900 mr-2" >Contact</a>
                             <a href="contacts.php?cntid=<?php echo $row['cntid'];?>" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure to delete?')">Delete</a>
                         </td>
                     </tr>

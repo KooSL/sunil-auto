@@ -25,7 +25,7 @@
         <!-- Customer List Table -->
         <div class="">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-red-500    ">
+                <thead class="bg-red-500">
                     <tr>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-white tracking-wider">
@@ -48,9 +48,13 @@
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-white  tracking-wider">
                             Description</th>
-                        <th scope="col" class="relative px-6 py-3">
-                            <span class="sr-only">Edit/Delete</span>
-                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-white  tracking-wider">
+                            Status</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-white  tracking-wider">
+                            Action</th>
+                    
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -72,17 +76,12 @@
                         <td class="px-6 py-4 whitespace-nowrap"><?php echo $row3['btype'];?></td>
                         <td class="px-6 py-4 whitespace-nowrap"><?php echo $row3['bdate'];?></td>
                         <td class="px-6 py-4 whitespace-nowrap"><?php echo $row3['bdescription'];?></td>
+                        <td class="px-6 py-4 whitespace-nowrap"><?php echo $row3['bstatus'];?></td>
 
-                        <!-- <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <?php if ($row3['sstatus'] != 'Done') { ?>
-                                <a href="services.php?confirm_id=<?php echo $row3['sid'];?>" class="text-indigo-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to mark this service as done?')">Done</a>
-                            <?php } ?>
-                                <a href="editservice.php?sid=<?php echo $row3['sid'];?>" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                <a href="services.php?delete_id=<?php echo $row3['sid'];?>" class="text-red-600 hover:text-red-900">Delete</a>
-                        </td> -->
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="text-indigo-600 hover:text-indigo-900 mr-2" >Reply</a>
-                            <a href="contacts.php?cntid=<?php echo $row['cntid'];?>" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                            <a href="bookings.php?approve_bid=<?php echo $row3['bid'];?>" class="text-green-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to approve?')">Approve</a>
+                            <a href="bookings.php?decline_bid=<?php echo $row3['bid'];?>" class="text-indigo-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to decline?')">Decline</a>
+                            <a href="bookings.php?delete_bid=<?php echo $row3['bid'];?>" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure to delete?')">Delete</a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -93,23 +92,24 @@
 <!-- <?php include 'footer.php'; ?> -->
 
 
-    <?php
-          if (isset($_GET['delete_id'])) {
-            $del_id = $_GET['delete_id'];
-            $qry2 = "DELETE FROM services WHERE sid = '$del_id'";
-            $result = mysqli_query($conn, $qry2);
+<?php
+          if (isset($_GET['delete_bid'])) {
+            $del_bid = $_GET['delete_bid'];
+            $qry3 = "DELETE FROM bookings WHERE bid = '$del_bid'";
+            $result = mysqli_query($conn, $qry3);
           }
-          elseif (isset($_GET['confirm_id'])) {
-            $confrim_id = $_GET['confirm_id'];
-            $sstatus = "Done";
-            $qry4 = "UPDATE services SET sstatus = '$sstatus' WHERE sid = '$confrim_id'";
+          elseif (isset($_GET['approve_bid'])) {
+            $confrim_bid = $_GET['approve_bid'];
+            $bstatus = "Approved";
+            $qry4 = "UPDATE bookings SET bstatus = '$bstatus' WHERE bid = '$confrim_bid'";
             $result2 = mysqli_query($conn, $qry4);
           }
-          elseif (isset($_GET['cancel_id'])) {
-            $cancel_id = $_GET['cancel_id'];
-            $b_status = "Canceled";
-            $qry5 = "UPDATE bookings SET b_status = '$b_status' WHERE b_id = '$cancel_id'";
-            $result3 = mysqli_query($con, $qry5);
+          elseif (isset($_GET['decline_bid'])) {
+            $cancel_bid = $_GET['decline_bid'];
+            $bstatus = "Declined";
+            $qry5 = "UPDATE bookings SET bstatus = '$bstatus' WHERE bid = '$cancel_bid'";
+            $result3 = mysqli_query($conn, $qry5);
           }
-      ?>         
+?>      
+
 

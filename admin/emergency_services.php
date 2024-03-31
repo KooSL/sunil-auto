@@ -30,7 +30,7 @@
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-white  tracking-wider">
                             EID</th>
-                        <th scope="col"
+                        <th scope="col" 
                             class="px-6 py-3 text-left text-xs font-medium text-white  tracking-wider">
                             Name</th>
                         <th scope="col"
@@ -63,9 +63,13 @@
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-white  tracking-wider">
                             Address</th>
-                        <th scope="col" class="relative px-6 py-3">
-                            <span class="sr-only">Edit/Delete</span>
-                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-white  tracking-wider">
+                            Status</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-white  tracking-wider">
+                            Action</th>
+
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -92,6 +96,7 @@
                         <td class="px-6 py-4 whitespace-nowrap"><?php echo $row3['esoption'];?></td>
                         <td class="px-6 py-4 whitespace-nowrap"><?php echo $row3['esldate'];?></td>
                         <td class="px-6 py-4 whitespace-nowrap"><?php echo $row3['eaddress'];?></td>
+                        <td class="px-6 py-4 whitespace-nowrap"><?php echo $row3['estatus'];?></td>
 
                         <!-- <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <?php if ($row3['sstatus'] != 'Done') { ?>
@@ -101,8 +106,9 @@
                                 <a href="services.php?delete_id=<?php echo $row3['sid'];?>" class="text-red-600 hover:text-red-900">Delete</a>
                         </td> -->
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="text-indigo-600 hover:text-indigo-900 mr-2" >Reply</a>
-                            <a href="contacts.php?cntid=<?php echo $row['cntid'];?>" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                            <a href="emergency_services.php?approve_eid=<?php echo $row3['eid'];?>" class="text-green-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to approve?')">Approve</a>
+                            <a href="emergency_services.php?decline_eid=<?php echo $row3['eid'];?>" class="text-indigo-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to decline?')">Decline</a>
+                            <a href="emergency_services.php?delete_eid=<?php echo $row3['eid'];?>" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure to delete?')">Delete</a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -111,25 +117,24 @@
         </div>
 
 <!-- <?php include 'footer.php'; ?> -->
+       
 
-
-    <?php
-          if (isset($_GET['delete_id'])) {
-            $del_id = $_GET['delete_id'];
-            $qry2 = "DELETE FROM services WHERE sid = '$del_id'";
-            $result = mysqli_query($conn, $qry2);
+<?php
+          if (isset($_GET['delete_eid'])) {
+            $del_eid = $_GET['delete_eid'];
+            $qry3 = "DELETE FROM emergency_services WHERE eid = '$del_eid'";
+            $result = mysqli_query($conn, $qry3);
           }
-          elseif (isset($_GET['confirm_id'])) {
-            $confrim_id = $_GET['confirm_id'];
-            $sstatus = "Done";
-            $qry4 = "UPDATE services SET sstatus = '$sstatus' WHERE sid = '$confrim_id'";
+          elseif (isset($_GET['approve_eid'])) {
+            $confrim_eid = $_GET['approve_eid'];
+            $estatus = "Approved";
+            $qry4 = "UPDATE emergency_services SET estatus = '$estatus' WHERE eid = '$confrim_eid'";
             $result2 = mysqli_query($conn, $qry4);
           }
-          elseif (isset($_GET['cancel_id'])) {
-            $cancel_id = $_GET['cancel_id'];
-            $b_status = "Canceled";
-            $qry5 = "UPDATE bookings SET b_status = '$b_status' WHERE b_id = '$cancel_id'";
-            $result3 = mysqli_query($con, $qry5);
+          elseif (isset($_GET['decline_eid'])) {
+            $cancel_eid = $_GET['decline_eid'];
+            $estatus = "Declined";
+            $qry5 = "UPDATE emergency_services SET estatus = '$estatus' WHERE eid = '$cancel_eid'";
+            $result3 = mysqli_query($conn, $qry5);
           }
-      ?>         
-
+?>

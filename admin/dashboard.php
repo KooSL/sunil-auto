@@ -61,35 +61,25 @@
             <hr class="my-3 h-1 bg-red-500">
 
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <!-- Card 1: Total Customers -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-lg font-semibold mb-4">Total Customers</h2>
-                <p class="text-3xl font-bold"><?php echo $rows_count_customers;?></p>
+            
+            <div class="bg-red-500 rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-semibold mb-4 text-white">Total Customers</h2>
+                <p class="text-3xl font-bold text-white"><?php echo $rows_count_customers;?></p>
             </div>
-            <!-- Card 2: Total Vehicles -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-lg font-semibold mb-4">Total Bookings</h2>
-                <p class="text-3xl font-bold"><?php echo $rows_count_bookings;?></p>
+           
+            <div class="bg-red-500 rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-semibold mb-4 text-white">Total Bookings</h2>
+                <p class="text-3xl font-bold text-white"><?php echo $rows_count_bookings;?></p>
             </div>
-            <!-- Card 3: Total Repairs -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-lg font-semibold mb-4">Total Emergency Services</h2>
-                <p class="text-3xl font-bold"><?php echo $rows_count_services;?></p>
-            </div>
-
-            <!-- <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-lg font-semibold mb-4">Done Services</h2>
-                <p class="text-3xl font-bold"><?php echo $numCompletedServices; ?></p>
+   
+            <div class="bg-red-500 rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-semibold mb-4 text-white">Total Emergency Services</h2>
+                <p class="text-3xl font-bold text-white"><?php echo $rows_count_services;?></p>
             </div>
 
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-lg font-semibold mb-4">In Progress Services</h2>
-                <p class="text-3xl font-bold"><?php echo $numInprogressServices; ?></p>
-            </div> -->
-
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-lg font-semibold mb-4">Contacts</h2>
-                <p class="text-3xl font-bold"><?php echo $rows_count_contact; ?></p>
+            <div class="bg-red-500 rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-semibold mb-4 text-white">Contacts</h2>
+                <p class="text-3xl font-bold text-white"><?php echo $rows_count_contact; ?></p>
             </div>
 
         </div>
