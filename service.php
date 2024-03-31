@@ -313,6 +313,7 @@ if(isset($_POST['book'])){
     $bdate = $_POST['bdate'];
     $bdescription = $_POST['bdescription'];
 
+    if(isset($_SESSION['cemail'])) {
         $qry = "INSERT INTO bookings (bname, bemail, btype, bdate, bdescription) VALUES ('$bname', '$bemail', '$btype', '$bdate', '$bdescription')";
         include 'includes/db.php';
         $result1 = mysqli_query($conn, $qry);
@@ -324,6 +325,10 @@ if(isset($_POST['book'])){
         }else{
             echo "<script>alert('Booking Failed')</script>";
         }
+    }
+    else {
+        echo "<script>alert('Please login to book!'); window.location.href = 'login.php'; </script>";
+    }
 }
 
 ?>
