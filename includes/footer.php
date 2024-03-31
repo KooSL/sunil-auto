@@ -42,10 +42,10 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="https://blsunill.com">TECH INFO NATION</a>, All Right Reserved.
+                        &copy; <a class="border-bottom" href="https://blsunill.com">autoCC</a>, All Right Reserved.
 
                         
-                        Designed By <a class="border-bottom" href="https://blsunill.com">TECH INFO NATION</a>
+                        Designed By <a class="border-bottom" href="https://blsunill.com">blsunill</a>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">
