@@ -79,17 +79,21 @@
                 <div class="col-lg-6">
                     <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5 wow zoomIn" data-wow-delay="0.6s">
                         <h1 class="text-white mb-4">Book For Emergency Service</h1>
-                        <form action="" method="POST">
+                        <form action="" method="POST" name="emgbooking" onsubmit="return validateForm()">
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;" name="bname" required>
+                                    <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;" name="bname" required pattern="[a-zA-Z\s]+" title="Enter only letters and spaces">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;" name="bemail" required>
+                                    <?php if(isset($_SESSION['cemail'])){ ?>
+                                        <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;" name="bemail" value="<?php echo $_SESSION['cemail']; ?>" readonly required>
+                                    <?php } else{ ?>
+                                        <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;" name="bemail" required>
+                                    <?php } ?> 
                                 </div>
 
                                 <div class="col-12 col-sm-6">
-                                    <input type="number" class="form-control border-0" placeholder="Contact Number" style="height: 55px;" name="bcontact" required>
+                                    <input type="text" class="form-control border-0" placeholder="Contact Number" style="height: 55px;" name="bcontact" required maxlength="15" minlength="10">
                                 </div>
 
 
@@ -145,11 +149,7 @@
     <!-- 404 End -->
         
 
-    <!-- Footer Start -->
-    <?php 
-    include 'includes/footer.php';
-    ?>
-    <!-- Footer End -->
+    
 
 
     <!-- Back to Top -->
@@ -170,6 +170,29 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+    function validateForm() {
+        var date = document.forms["emgbooking"]["bsldate"].value;
+
+        var parts = date.split('-');
+        var year = parseInt(parts[0]);
+        var month = parseInt(parts[1]);
+        var day = parseInt(parts[2]);
+        var today = new Date();
+        var selectedDate = new Date(year, month - 1, day);
+        if (selectedDate < today) {
+            alert("Please enter a future date!");
+            return false;
+        }
+            return true;
+        }
+	</script>
+
+    <!-- Footer Start -->
+    <?php 
+        include 'includes/footer.php';
+    ?>
+    <!-- Footer End -->
 </body>
 
 </html>

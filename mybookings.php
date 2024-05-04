@@ -79,7 +79,7 @@
     ?> 
 
 <!-- Contact Start -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-3">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="text-primary text-uppercase">// Service bookings //</h6>
@@ -117,22 +117,29 @@
                         <td><?php echo $row3['bstatus'];?></td>
 
                         <td>
-                            <a href="mybookings.php?decline_bid=<?php echo $row3['bid'];?>" class="text-indigo-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to decline?')">Decline</a>
+                            <?php if($row3['bstatus'] == "Approved") { ?>
+                                <a href="mybookings.php?decline_bid=<?php echo $row3['bid'];?>" class="text-indigo-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to decline?')">Decline</a>
+                            <?php } elseif($row3['bstatus'] == "Declined") { ?>
+                                <a href="mybookings.php?approve_bid=<?php echo $row3['bid'];?>" class="text-green-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to Approve?')">Approve</a>
+                            <?php } else { ?>
+                                <a href="#" class="text-green-600 hover:text-indigo-900 mr-2">Pending</a>
+                            <?php } ?>
                         </td>
                     </tr>
                     <?php } ?>
                 <?php } ?>
             </table>
         </div>
+    </div>
 
         <?php
-    $qry3 = "SELECT * FROM emergency_services  WHERE eemail = '$email'";
-    include 'includes/db.php';
-    $result3 = mysqli_query($conn, $qry3);
-    ?> 
+        include 'includes/db.php';
+        $qry4 = "SELECT * FROM emergency_services  WHERE eemail = '$email'";
+        $result4 = mysqli_query($conn, $qry4);
+        ?> 
 
 <!-- Contact Start -->
-<div class="container-xxl py-5">
+<div class="container-xxl py-3">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="text-primary text-uppercase">//Emergency Service bookings //</h6>
@@ -142,47 +149,61 @@
         <div class="tables">
             <table class="table">
                 <tr class="bg-danger text-white">
-                    <th>BID</th>
+                    <th>EID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Contact</th>
                     <th>Type</th>
+                    <th>Vehicle Name</th>
+                    <th>Vehicle Number</th>
+                    <th>Vehicle Model</th>
+                    <th>Service Option</th>
                     <th>Date</th>
-                    <th>Description</th>
+                    <th>Address</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
 
                 <?php     
-                    if(mysqli_num_rows($result3) == 0){
+                    if(mysqli_num_rows($result4) == 0){
                         echo '<tr class="text-center"><td colspan="8">No Bookings Found</td></tr>';
                     }
                     else { 
-                        while($row3 = mysqli_fetch_assoc($result3)){ 
+                        while($row4 = mysqli_fetch_assoc($result4)){ 
                     ?> 
                 <tr>
-                        <td><?php echo $row3['bid'];?></td>
-                        <td><?php echo $row3['bname'];?></td>
-                        <td><?php echo $row3['bemail'];?></td>
-                        <td><?php echo $row3['btype'];?></td>
-                        <td><?php echo $row3['bdate'];?></td>
-                        <td><?php echo $row3['bdescription'];?></td>
-                        <td><?php echo $row3['bstatus'];?></td>
+                        <td><?php echo $row4['eid'];?></td>
+                        <td><?php echo $row4['ename'];?></td>
+                        <td><?php echo $row4['eemail'];?></td>
+                        <td><?php echo $row4['econtact'];?></td>
+                        <td><?php echo $row4['etype'];?></td>
+                        <td><?php echo $row4['evname'];?></td>
+                        <td><?php echo $row4['evnumber'];?></td>
+                        <td><?php echo $row4['evmodel'];?></td>
+                        <td><?php echo $row4['esoption'];?></td>
+                        <td><?php echo $row4['esldate'];?></td>
+                        <td><?php echo $row4['eaddress'];?></td>
+                        <td><?php echo $row4['estatus'];?></td>
 
                         <td>
-                            <a href="mybookings.php?decline_bid=<?php echo $row3['bid'];?>" class="text-indigo-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to decline?')">Decline</a>
+                            <?php if($row4['estatus'] == "Approved") { ?>
+                                <a href="mybookings.php?decline_eid=<?php echo $row4['eid'];?>" class="text-indigo-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to decline?')">Decline</a>
+                            <?php } elseif($row4['estatus'] == "Declined") { ?>
+                                <a href="mybookings.php?approve_eid=<?php echo $row4['eid'];?>" class="text-green-600 hover:text-indigo-900 mr-2" onclick="return confirm('Are you sure to Approve?')">Approve</a>
+                            <?php } else { ?>
+                                <a href="#" class="text-green-600 hover:text-indigo-900 mr-2">Pending</a>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
                 <?php } ?>
             </table>
         </div>
+        </div>
+    </div>
+</div>
+</div>
     
-
-    <!-- Footer Start -->
-    <?php 
-    include 'includes/footer.php';
-    ?>
-    <!-- Footer End -->
 
 
     <!-- Back to Top -->
@@ -203,16 +224,42 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+        <!-- Footer Start -->
+        <?php 
+    include 'includes/footer.php';
+    ?>
+    <!-- Footer End -->
+
 </body>
 
 </html>
 
 <?php
 if (isset($_GET['decline_bid'])) {
-            $cancel_bid = $_GET['decline_bid'];
-            $bstatus = "Declined";
-            $qry5 = "UPDATE bookings SET bstatus = '$bstatus' WHERE bid = '$cancel_bid'";
-            $result3 = mysqli_query($conn, $qry5);
-          }
+    $cancel_bid = $_GET['decline_bid'];
+    $bstatus = "Declined";
+    $qry5 = "UPDATE bookings SET bstatus = '$bstatus' WHERE bid = '$cancel_bid'";
+    $result3 = mysqli_query($conn, $qry5);
+
+} elseif (isset($_GET['decline_eid'])) {
+    $decline_eid = $_GET['decline_eid'];
+    $estatus = "Declined";
+    $qry6 = "UPDATE emergency_services SET estatus = '$estatus' WHERE eid = '$decline_eid'";
+    $result5 = mysqli_query($conn, $qry6);
+
+} elseif (isset($_GET['approve_bid'])) {
+    $approve_bid = $_GET['approve_bid'];
+    $bstatus = "Approved";
+    $qry7 = "UPDATE bookings SET bstatus = '$bstatus' WHERE bid = '$approve_bid'";
+    $result7 = mysqli_query($conn, $qry7);
+
+} elseif (isset($_GET['approve_eid'])) {
+    $approve_eid = $_GET['approve_eid'];
+    $estatus = "Approved";
+    $qry8 = "UPDATE emergency_services SET estatus = '$estatus' WHERE eid = '$approve_eid'";
+    $result8 = mysqli_query($conn, $qry8);
+
+}
 ?>
 

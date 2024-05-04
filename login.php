@@ -15,7 +15,7 @@
 
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="" method="POST">
+			<form action="" method="POST" name="signup" onsubmit="return validateForm()">
 				<h1>Create Account</h1>
 				<div class="social-container">
 					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -23,8 +23,8 @@
 					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 				</div>
 				<span>or use your email for registration</span>
-				<input type="text" placeholder="Name" name="cname" required/>
-				<input type="email" placeholder="Email" name="cemail" required/>
+				<input type="text" placeholder="Name" name="cname" pattern="[a-zA-Z\s]+" title="Enter only letters and spaces" required/>
+				<input type="email" placeholder="Email" name="cemail" id="emailid" required/>
 				<input type="password" placeholder="Password" name="password" required/>
 				<input type="password" placeholder="Confirm Password" name="cpassword" required/>
 				<button type="submit" name="signup">Sign Up</button>
@@ -39,7 +39,7 @@
 					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 				</div>
 				<span>or use your account</span>
-				<input type="email" placeholder="Email" name="cemail" />
+				<input type="email" placeholder="Email" name="cemail" id="emailid" />
 				<input type="password" placeholder="Password" name="password"/>
 				<a href="#">Forgot your password?</a>
 				<button type="submit" name="login">Log In</button>
@@ -63,6 +63,25 @@
 	</div>
 
   	<script type="text/javascript" src="login.js"></script>
+	<script>
+    function validateForm() {
+        var email = document.forms["signup"]["cemail"].value;
+        var password = document.forms["signup"]["password"].value;
+
+        var emailRegex = /^[^\d\s][\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address");
+            return false;
+        }
+
+        var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+            alert("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character");
+            return false;
+        }
+        return true;
+    }
+	</script>
 </body>
 </html>
 
@@ -115,3 +134,5 @@ if(isset($_POST['login']))
     }
 }
 ?>
+
+
